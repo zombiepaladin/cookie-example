@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Cookie Example</title>
+    <link href="app.css" type="text/css" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Cookie Example</h1>
+    <p>
+      This node server demonstrates the use of cookies.
+      Cookies are a string of key/value pairs passed between
+      the client and server with every request.
+      Currently, this site's cookies are:
+    </p>
+    <ul id="cookie-list">
+    </ul>
+
+    <h2>Manipulating Cookies</h2>
+    <p>
+      You can <a href="/reset">reset</a> the count value
+      by setting it in the server (look at the server's
+      requestHander() function to see the code responsible).
+    </p>
+    <p>
+      Simiarly, you can <a href="/increment">increment</a>
+      or <a href="/decrement">decrement</a> the count value
+      by parsing it and modifying it on the server
+    </p>
+
+    <p>
+      Cookies can be manipulated via JavaScript - the cookies
+      listed above are extrated using JavaScript.  However, if
+      a cookie has the HTTPOnly flag, it won't be visible to
+      JavaScript, as you can try by visiting
+      <a href="/secret">secret</a>.  The cookie contains
+      'message=shhh', but it isn't on the list above. However,
+      you can see it with the web tools (right-click, inspect,
+      and view the headers under the network tab).
+    </p>
+
+    <p>
+      One other important flag is the session flag - cookies marked
+      as session cookies are discarded once the browser closes.
+    </p>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

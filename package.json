@@ -1,0 +1,23 @@
+{
+  "name": "cookie-example",
+  "version": "1.0.0",
+  "description": "A node server demonstrating cookie manipulation.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zombiepaladin/cookie-example.git"
+  },
+  "keywords": [
+    "cookies"
+  ],
+  "author": "Nathan H. Bean",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zombiepaladin/cookie-example/issues"
+  },
+  "homepage": "https://github.com/zombiepaladin/cookie-example#readme"
+}

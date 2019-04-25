@@ -30,17 +30,20 @@
     <p>
       Cookies can be manipulated via JavaScript - the cookies
       listed above are extrated using JavaScript.  However, if
-      a cookie has the HTTPOnly flag, it won't be visible to
+      a cookie has the HTTPOnly attribute, it won't be visible to
       JavaScript, as you can try by visiting
       <a href="/secret">secret</a>.  The cookie contains
       'message=shhh', but it isn't on the list above. However,
       you can see it with the web tools (right-click, inspect,
       and view the headers under the network tab).
     </p>
-
+    
     <p>
-      One other important flag is the session flag - cookies marked
-      as session cookies are discarded once the browser closes.
+      Cookies can also be set to expire using Max-Age or Expires attribute
+      You can set a cookie with a Max-Age of 30 seconds by visiting 
+      <a href="/timeout">timeout</a>. Cookies without either of these 
+      attributes are only kept for the duration of the session - they 
+      are discarded once the browser closes.
     </p>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>

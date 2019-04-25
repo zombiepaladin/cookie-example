@@ -16,6 +16,9 @@ var server = new http.Server(handleRequest);
  * @param {http.serverResponse} res - the response object
  */
 function handleRequest(req, res) {
+  // Always print the cookies to the terminal
+  printCookies(req.headers.cookie);
+  // Respond to the request
   switch(req.url) {
     // Serve the index file
     case '/':
@@ -27,6 +30,7 @@ function handleRequest(req, res) {
         res.end(data);
       });
       break;
+      
     // Serve the css file
     case '/app.css':
       fs.readFile('public/app.css', function(err, data){
@@ -56,6 +60,7 @@ function handleRequest(req, res) {
       });
       break;
 
+    // Increment the cookie 'count' value
     case '/increment':
       // Cookies are sent back to the server via the cookie header,
       // we can retrieve them from there.  However, to access
@@ -71,6 +76,7 @@ function handleRequest(req, res) {
       });
       break;
 
+      // Decrement the cookie 'count' value
       case '/decrement':
         // Decrement works like increment, we parse
         // the cookie, convert the count to an int,
@@ -86,6 +92,7 @@ function handleRequest(req, res) {
         });
         break;
 
+      // Set an HTTPOnly cookie
       case '/secret':
         res.setHeader('Set-Cookie', "message=shhh; HTTPOnly;");
         fs.readFile('public/index.html', function(err, data) {
@@ -94,12 +101,28 @@ function handleRequest(req, res) {
         });
         break;
       
+      // Set a Secure cookie
       case '/secure':
         res.setHeader('Set-Cookie', "secure-message=foobar; Secure;");
         fs.readFile('public/index.html', function(err, data) {
           res.setHeader("Content-Type", "text/html");
           res.end(data);
         });
+        break;
+      
+      // Set a Max-Age cookie
+      case '/timeout':
+        res.setHeader('Set-Cookie', "timeout=when?; Max-Age=30");
+        fs.readFile('public/index.html', function(err, data) {
+          res.setHeader("Content-Type", "text/html");
+          res.end(data);
+        });
+        break;
+      
+      // Serve a 404 error
+      default:
+        res.statusCode = 404;
+        res.statusMessage = "Not Found";
         break;
   }
 }
@@ -110,7 +133,6 @@ function handleRequest(req, res) {
  * @returns {Object} the assocative array of key/value pairs
  */
 function parseCookie(cookie) {
-  console.log(cookie);
   var cookies = {};
   // Cookies are key/value pairs separated by semicolons,
   // followed by a space, so split the cookie by that string
@@ -125,6 +147,21 @@ function parseCookie(cookie) {
   });
   // Return the parsed cookies
   return cookies;
+}
+
+/** @function printCookies 
+ * Prints the cookies found in the provided cookie string
+ * to the terminal. 
+ * @param {string} cookie - the unparsed cookie string.
+ */
+function printCookies(cookie) {
+  var cookies = parseCookie(cookie);
+  // Print the parsed cookies
+  console.log("Cookies:");
+  for(var key in cookies) {
+    console.log(key, cookies[key]);
+  }
+  console.log('');
 }
 
 // Start the server

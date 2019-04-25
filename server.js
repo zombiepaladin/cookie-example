@@ -49,7 +49,7 @@ function handleRequest(req, res) {
     // Reset the cookie 'count' value
     case '/reset':
       // The Set-Cookie header sends cookie values to the client to save
-      res.setHeader('Set-Cookie', ["count=0"]);
+      res.setHeader('Set-Cookie', "count=0");
       fs.readFile('public/index.html', function(err, data){
         res.setHeader("Content-Type", "text/html");
         res.end(data);
@@ -64,7 +64,7 @@ function handleRequest(req, res) {
       var count = parseInt(cookies["count"]);
       count++;
       // Similarly, we can change thier values with a response header
-      res.setHeader('Set-Cookie', ["count=" + count]);
+      res.setHeader('Set-Cookie', "count=" + count);
       fs.readFile('public/index.html', function(err, data) {
         res.setHeader("Content-Type", "text/html");
         res.end(data);
@@ -79,7 +79,7 @@ function handleRequest(req, res) {
         var cookies = parseCookie(req.headers.cookie);
         var count = parseInt(cookies["count"]);
         count--;
-        res.setHeader('Set-Cookie', ["count=" + count]);
+        res.setHeader('Set-Cookie', "count=" + count);
         fs.readFile('public/index.html', function(err, data) {
           res.setHeader("Content-Type", "text/html");
           res.end(data);
@@ -87,7 +87,15 @@ function handleRequest(req, res) {
         break;
 
       case '/secret':
-        res.setHeader('Set-Cookie', ["message=shhh; HTTPOnly;"]);
+        res.setHeader('Set-Cookie', "message=shhh; HTTPOnly;");
+        fs.readFile('public/index.html', function(err, data) {
+          res.setHeader("Content-Type", "text/html");
+          res.end(data);
+        });
+        break;
+      
+      case '/secure':
+        res.setHeader('Set-Cookie', "secure-message=foobar; Secure;");
         fs.readFile('public/index.html', function(err, data) {
           res.setHeader("Content-Type", "text/html");
           res.end(data);
@@ -121,5 +129,5 @@ function parseCookie(cookie) {
 
 // Start the server
 server.listen(PORT, function(){
-  console.log(PORT);
+  console.log(`Listening on port ${PORT}`);
 });
